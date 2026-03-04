@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const BASE_URL = process.env.REACT_APP_API_URL;
+export const API_URL = process.env.REACT_APP_API_URL;
 
 const httpAxios = axios.create({
-  baseURL: BASE_URL,
+  baseURL: `${API_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },

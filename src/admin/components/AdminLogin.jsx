@@ -3,7 +3,7 @@
 // 1. Import thêm useEffect và useLocation
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
+const API_URL = process.env.REACT_APP_API_URL;
 // Component Style (CSS-in-JS)
 const AdminLoginStyles = () => (
     <style>
@@ -154,41 +154,40 @@ function AdminLogin() {
 
     // Hàm xử lý khi nhấn nút Đăng nhập
     const handleSubmit = async (e) => {
-        e.preventDefault(); 
-        setLoading(true);
-        setError(''); // Xóa lỗi cũ khi bắt đầu đăng nhập
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-        const loginData = {
-            username: username,
-            password: password
-        };
+    const loginData = { username, password };
 
-        try {
-            const response = await fetch('http://localhost:8080/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(loginData)
-            });
+    try {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+        });
 
-            const data = await response.json();
+        const data = await response.json();
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Sai username hoặc password!');
-            }
-
-            if (data.token) {
-                localStorage.setItem('adminToken', data.token);
-                window.location.href = '/admin/dashboard'; 
-            } else {
-                throw new Error('Không nhận được token từ server.');
-            }
-
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false); 
+        if (!response.ok) {
+            throw new Error(data.message || 'Sai username hoặc password!');
         }
-    };
+
+        if (data.token) {
+            localStorage.setItem('adminToken', data.token);
+            window.location.href = '/admin/dashboard';
+        } else {
+            throw new Error('Không nhận được token từ server.');
+        }
+
+    } catch (err) {
+        setError(err.message || 'Lỗi kết nối server.');
+    } finally {
+        setLoading(false);
+    }
+};
 
     return (
         <>

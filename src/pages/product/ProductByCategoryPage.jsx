@@ -5,7 +5,8 @@ import ProductService from '../../api/ProductService.js';
 import CategoryService from '../../api/CategoryService.js';
 import { ArrowLeft } from 'lucide-react'; // For Back to Home button
 
-const IMAGE_PRODUCT_URL = "http://localhost:8080/uploads/images/products/";
+const API_URL = process.env.REACT_APP_API_URL;
+const IMAGE_PRODUCT_URL = `${API_URL}/uploads/images/products/`;
 
 export default function ProductPage() {
     const [products, setProducts] = useState([]);

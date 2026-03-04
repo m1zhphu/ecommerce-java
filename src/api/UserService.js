@@ -2,8 +2,10 @@
 import axios from 'axios';
 
 // --- Tạo instance Axios với baseURL ---
+const API_URL = process.env.REACT_APP_API_URL;
+
 const httpAxios = axios.create({
-    baseURL: 'http://localhost:8080/api', // Đặt baseURL API của bạn ở đây
+    baseURL: `${API_URL}/api`,
     headers: {
         'Content-Type': 'application/json',
     },

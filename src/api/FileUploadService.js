@@ -3,7 +3,7 @@
 import httpAxios from "./httpAxios";
 
 // Địa chỉ server Spring Boot của bạn (dùng cho ảnh cũ)
-const API_URL = "http://localhost:8080"; 
+const API_URL = process.env.REACT_APP_API_URL;
 
 // (Các hàm hỗ trợ token của bạn, giữ nguyên)
 const getToken = () => {
