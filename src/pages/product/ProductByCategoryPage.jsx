@@ -4,9 +4,10 @@ import { useParams, Link } from 'react-router-dom'; // Keep Link from react-rout
 import ProductService from '../../api/ProductService.js';
 import CategoryService from '../../api/CategoryService.js';
 import { ArrowLeft } from 'lucide-react'; // For Back to Home button
+import FileUploadService from '../../api/FileUploadService';
 
-const API_URL = process.env.REACT_APP_API_URL;
-const IMAGE_PRODUCT_URL = `${API_URL}/uploads/images/products/`;
+// const API_URL = process.env.REACT_APP_API_URL;
+// const IMAGE_PRODUCT_URL = `${API_URL}/uploads/images/products/`;
 
 export default function ProductPage() {
     const [products, setProducts] = useState([]);
@@ -106,7 +107,7 @@ export default function ProductPage() {
                                         {/* Ảnh sản phẩm */}
                                         <div className="relative w-full overflow-hidden aspect-[3/4]">
                                             <img
-                                                src={product.image ? `${IMAGE_PRODUCT_URL}${product.image}` : "https://via.placeholder.com/400x533/F9FAFB/D1D5DB?text=Ảnh"}
+                                                src={product.image ? FileUploadService.getImageUrl(product.image, "products") : "https://via.placeholder.com/400x533/F9FAFB/D1D5DB?text=Ảnh"}
                                                 alt={product.name}
                                                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-in-out"
                                                 loading="lazy"
